@@ -5,7 +5,7 @@ OBJS = $(SRCS:%.c=%.o)
 EXES = $(FUN_SRCS:%.c=test_%)
 
 CC = gcc
-CFLAGS = -std=c99 -pedantic -Wall
+CFLAGS = -std=c99 -pedantic -Wall -Werror
 CPPFLAGS =
 OPTFLAGS =
 DBGFLAGS =
@@ -13,7 +13,8 @@ LDFLAGS =
 RM = rm -rf
 
 FRAMA_C = frama-c
-JESSIE = $(FRAMA_C) -jessie
+FRAMAC_FLAGS = -cpp-extra-args="-DJESSIE_PRAGMAS"
+JESSIE = $(FRAMA_C) $(FRAMAC_FLAGS) -jessie
 JESSIE_ERGO = $(JESSIE) -jessie-atp=ergo
 JESSIE_SIMPLIFY = $(JESSIE) -jessie-atp=simplify
 

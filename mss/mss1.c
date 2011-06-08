@@ -11,8 +11,9 @@
  *   Alt-Ergo 0.92.2
  */
 
+#ifdef JESSIE_PRAGMAS
 #pragma JessieIntegerModel(math)
-//#pragma JessieTerminationPolicy(user)
+#endif
 
 /*@ axiomatic Sum {
   @   logic integer sum{L}(int *a, integer i, integer j);
@@ -22,9 +23,9 @@
   @ }
   @*/
 
-//@ ensures \result == ((x > y) ? x : y);
+//@ ensures \result == ((x >= y) ? x : y);
 int max (int x, int y) {
-    return (x > y) ? x : y;
+    return (x >= y) ? x : y;
 }
 
 /*@ requires
@@ -35,7 +36,7 @@ int max (int x, int y) {
   @   (\exists integer i, j; 0 <= i <= j < n && \result == sum(a, i, j));
   @*/
 int mss (int a[], int n) {
-    int t = a[0], s = a[0], k;
+    int t = a[0], s = a[0];
     //@ ghost int p = 0, q = 0, r = 0;
     /*@ loop invariant
       @      0 < k <= n &&
@@ -47,11 +48,10 @@ int mss (int a[], int n) {
       @      (\forall integer i, j; 0 <= i <= j < k ==> s >= sum(a, i, j));
       @ loop variant n - k;
       @*/
-    for (k = 1; k < n; k++) {
-        //@ ghost p = t + a[k] > a[k] ? p : k;
+    for (int k = 1; k < n; k++) {
+        //@ ghost if (t < 0) p = k;
         t = max(t + a[k], a[k]);
-        //@ ghost q = s > t ? q : p;
-        //@ ghost r = s > t ? r : k;
+        //@ ghost if (s < t) { q = p; r = k; }
         s = max(s, t);
     }
     return s;
