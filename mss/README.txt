@@ -1,6 +1,6 @@
 Maximum Segment Sum Problem
 
-A segment sum of an array is the sum of a continuous elements in the array.
+A segment sum of an array is the sum of a contiguous elements in the array.
 
   ssum(A, i, j) = A[i] + A[i + 1] + ... + A[j]
 
