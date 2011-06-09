@@ -1,6 +1,8 @@
 FUN_SRCS = mss1.c
+LIB_SRCS = max.c
 MAIN_SRCS = main.c
-SRCS = $(FUN_SRCS) $(MAIN_SRCS)
+SRCS = $(MAIN_SRCS) $(FUN_SRCS) $(LIB_SRCS)
+LIBS = $(LIB_SRCS:%.c=%.o)
 OBJS = $(SRCS:%.c=%.o)
 EXES = $(FUN_SRCS:%.c=test_%)
 
@@ -18,12 +20,10 @@ JESSIE = $(FRAMA_C) $(FRAMAC_FLAGS) -jessie
 JESSIE_ERGO = $(JESSIE) -jessie-atp=ergo
 JESSIE_SIMPLIFY = $(JESSIE) -jessie-atp=simplify
 
-JESSIE_DIRS = $(FUN_SRCS:%.c=%.jessie)
-
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(OPTFLAGS) $(DBGFLAGS) -c $<
 
-test_%: main.o %.o
+test_%: main.o %.o $(LIBS)
 	$(CC) $(CFLAGS) $(OPTFLAGS) $(DBGFLAGS) $(LDFLAGS) -o $@ $^
 
 ergo_%: %.c
@@ -39,14 +39,20 @@ jessie_%: %.c
 
 all: $(EXES)
 
+mss1.o: mss.h max.h
+
+max.o: max.h
+
+main.o: mss.h max.h
+
 clean:
 	$(RM) $(EXES)
 	$(RM) $(OBJS)
 
 allclean: clean
 	$(RM) *~
-	$(RM) a.out
+	$(RM) a.out *.o
 
-jessieclean:
-	$(RM) $(JESSIE_DIRS)
+distclean: allclean
+	$(RM) *.jessie
 

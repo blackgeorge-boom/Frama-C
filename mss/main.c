@@ -6,6 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "max.h"
+#include "mss.h"
+
 int mss (int *, int);
 
 #define ALEN(a) (sizeof(a) / sizeof(a[0]))
