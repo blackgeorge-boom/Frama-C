@@ -11,7 +11,7 @@
  *   Alt-Ergo 0.92.2 / Simplify 1.5.7 / CVC3 2.2
  */
 
-#ifdef JESSIE_PRAGMAS
+#ifndef NO_JESSIE_PRAGMAS
 #pragma JessieIntegerModel(math)
 #endif
 

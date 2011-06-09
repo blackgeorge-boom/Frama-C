@@ -8,14 +8,14 @@ EXES = $(FUN_SRCS:%.c=test_%)
 
 CC = gcc
 CFLAGS = -std=c99 -pedantic -Wall -Werror
-CPPFLAGS =
+CPPFLAGS = -DNO_JESSIE_PRAGMAS
 OPTFLAGS =
 DBGFLAGS =
 LDFLAGS =
 RM = rm -rf
 
 FRAMA_C = frama-c
-FRAMAC_FLAGS = -cpp-extra-args="-DJESSIE_PRAGMAS"
+FRAMAC_FLAGS = #-cpp-extra-args="-DJESSIE_PRAGMAS"
 JESSIE = $(FRAMA_C) $(FRAMAC_FLAGS) -jessie
 JESSIE_ERGO = $(JESSIE) -jessie-atp=ergo
 JESSIE_SIMPLIFY = $(JESSIE) -jessie-atp=simplify

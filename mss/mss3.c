@@ -8,7 +8,7 @@
  *
  */
 
-#ifdef JESSIE_PRAGMAS
+#ifndef NO_JESSIE_PRAGMAS
 #pragma JessieIntegerModel(math)
 #endif
 

@@ -1,11 +1,10 @@
-Maximum Segment Sum Problem
+* Maximum Segment Sum Problem
 
 A segment sum of an array is the sum of a contiguous elements in the array.
 
   ssum(A, i, j) = A[i] + A[i + 1] + ... + A[j]
 
-The maximum segment sum (MSS) of an array is the maximum of all segment
-sums of the array.
+The maximum segment sum (MSS) of an array is the maximum of all segment sums of the array.
 
   mss(A) = max{ ssum(A, i, j) |  0 <= i <= j < |A| }
 
@@ -14,26 +13,28 @@ Here we assume that |A| (the length of A) is greater than zero.
 Example: mss([31, -41, 59, 26, -53, 58, 97, -93, -23, 84]) = 187
 
 
-ACSL Specification
+* ACSL Specification
 
-We use the following ACSL specification for functions calculating MSS
-of integer arrays.
+You can find the specifications of functions in the header files.
+They can be verified using Frama-C with Jessie plugin.
 
-/*@ requires
-  @   n > 0 &&
-  @   \valid_range(a, 0, n - 1);
-  @ ensures
-  @   (\forall integer i, j; 0 <= i <= j < n ==> \result >= ssum(a, i, j)) &&
-  @   (\exists integer i, j; 0 <= i <= j < n && \result == ssum(a, i, j));
-  @*/
-int mss (int a[], int n);
+  frama-c -jessie mss1.c
 
+The above command starts gWhy (Why in GUI mode).
+You can specify a prover.
+
+  frama-c -jessie -jessie-atp=ergo mss1.c
+
+Or, you can use make command.
+
+  make jessie_mss1
+  make ergo_mss1
+
+
+* On Loop Invariants
 
 The file mss1.c provides a C implementation of famous O(n) algorithm.
 To verify this, it may be possible to write the loop invariant as follows. 
-This looks simpler and cleaner. But it is hard to verify the existential
-clauses with automatic provers such as Alt-Ergo or Simplify. Instead,
-we provide some ghost variables that track the indices for current maximums.
 
 /*@ loop invariant
   @      0 < k <= n &&
@@ -44,3 +45,6 @@ we provide some ghost variables that track the indices for current maximums.
   @ loop variant n - k;
   @*/
 
+The above invariant is much simpler and clearer than the one in mss.h.
+However it is generally hard to verify invariants including existential clauses with automatic provers such as Alt-Ergo or Simplify. 
+So we provide ghost variables that keep track of the indices for current maximums.
