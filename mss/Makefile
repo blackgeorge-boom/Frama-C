@@ -19,6 +19,7 @@ FRAMAC_FLAGS = #-cpp-extra-args="-DJESSIE_PRAGMAS"
 JESSIE = $(FRAMA_C) $(FRAMAC_FLAGS) -jessie
 JESSIE_ERGO = $(JESSIE) -jessie-atp=ergo
 JESSIE_SIMPLIFY = $(JESSIE) -jessie-atp=simplify
+JESSIE_CVC3 = $(JESSIE) -jessie-atp=cvc3
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(OPTFLAGS) $(DBGFLAGS) -c $<
@@ -26,24 +27,30 @@ JESSIE_SIMPLIFY = $(JESSIE) -jessie-atp=simplify
 test_%: main.o %.o $(LIBS)
 	$(CC) $(CFLAGS) $(OPTFLAGS) $(DBGFLAGS) $(LDFLAGS) -o $@ $^
 
+jessie_%: %.c
+	$(JESSIE) $^
+
 ergo_%: %.c
 	$(JESSIE_ERGO) $^
 
 simplify_%: %.c
 	$(JESSIE_SIMPLIFY) $^
 
-jessie_%: %.c
-	$(JESSIE) $^
+cvc3_%: %.c
+	$(JESSIE_CVC3) $^
 
 .PHONY: all clean allclean jessieclean
 
 all: $(EXES)
 
-mss1.o: mss.h max.h
+main.o: mss.h max.h
 
 max.o: max.h
 
-main.o: mss.h max.h
+mss1.o: mss.h max.h
+
+mss3.o: mss.h max.h
+
 
 clean:
 	$(RM) $(EXES)
