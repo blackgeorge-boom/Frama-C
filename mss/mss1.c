@@ -1,5 +1,5 @@
 /*
- * Maximum segment sum in linear time
+ * Maximum segment sum: clever O(n) implementation
  * Takuo Watanabe (Tokyo Institute of Technology)
  *
  * To verify this file using Frama-C:
@@ -21,14 +21,13 @@
 int mss (int a[], int n) {
     int t = a[0], s = a[0];
     //@ ghost int p = 0, q = 0, r = 0;
-    /*@ loop invariant
-      @      0 < k <= n &&
-      @      (\forall integer i; 0 <= i < k ==> t >= ssum(a, i, k - 1)) &&
-      @      0 <= p < k &&
-      @      t == ssum(a, p, k - 1) &&
-      @      (\forall integer i, j; 0 <= i <= j < k ==> s >= ssum(a, i, j)) &&
-      @      0 <= q <= r < k &&
-      @      s == ssum(a, q, r);
+    /*@ loop invariant 0 < k <= n;
+      @ loop invariant \forall integer i;
+      @                0 <= i < k ==> t >= ssum(a, i, k - 1);
+      @ loop invariant 0 <= p < k && t == ssum(a, p, k - 1);
+      @ loop invariant \forall integer i, j;
+      @                0 <= i <= j < k ==> s >= ssum(a, i, j);
+      @ loop invariant 0 <= q <= r < k && s == ssum(a, q, r);
       @ loop variant n - k;
       @*/
     for (int k = 1; k < n; k++) {

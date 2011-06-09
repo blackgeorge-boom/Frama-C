@@ -34,14 +34,15 @@ Or, you can use make command.
 * On Loop Invariants
 
 The file mss1.c provides a C implementation of famous O(n) algorithm.
-To verify this, it may be possible to write the loop invariant as follows. 
+To verify this, it may be possible to write the loop invariants as follows. 
 
-/*@ loop invariant
-  @      0 < k <= n &&
-  @      (\forall integer i; 0 <= i < k ==> t >= sum(a, i, k - 1)) &&
-  @      (\exists integer i; 0 <= i < k && t == sum(a, i, k - 1)) &&
-  @      (\forall integer i, j; 0 <= i <= j < k ==> s >= sum(a, i, j)) &&
-  @      (\exists integer i, j; 0 <= i <= j < k && s == sum(a, i, j));
+/*@ loop invariant 0 < k <= n;
+  @ loop invariant \forall integer i; 0 <= i < k ==> t >= sum(a, i, k - 1);
+  @ loop invariant \exists integer i; 0 <= i < k && t == sum(a, i, k - 1);
+  @ loop invariant \forall integer i, j;
+  @                0 <= i <= j < k ==> s >= sum(a, i, j);
+  @ loop invariant \exists integer i, j;
+  @                0 <= i <= j < k && s == sum(a, i, j);
   @ loop variant n - k;
   @*/
 

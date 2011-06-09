@@ -1,4 +1,4 @@
-FUN_SRCS = mss1.c mss3.c
+FUN_SRCS = mss1.c mss2.c mss3.c
 LIB_SRCS = max.c
 MAIN_SRCS = main.c
 SRCS = $(MAIN_SRCS) $(FUN_SRCS) $(LIB_SRCS)
