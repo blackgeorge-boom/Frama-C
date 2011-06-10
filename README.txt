@@ -1,1 +1,1 @@
-This project contains my personal exercises of verifying C programs using Frama-C.
+This project is for my personal Frama-C training.
