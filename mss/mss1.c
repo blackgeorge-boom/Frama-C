@@ -1,12 +1,8 @@
-/*
+/* 
  * Maximum segment sum: clever O(n) implementation
  * Takuo Watanabe (Tokyo Institute of Technology)
  *
- * To verify this file using Frama-C:
- *   frama-c -jessie mss.c
- *   frama-c -jessie -jessie-atp=ergo mss.c
- *
- * This file can be successfully verified using the following configuration.
+ * This file can be successfully verified using Frama-C with Jessie plugin.
  *   Frama-C Carbon-20110201
  *   Alt-Ergo 0.92.2 / Simplify 1.5.7 / CVC3 2.2
  */
@@ -23,11 +19,11 @@ int mss (int a[], int n) {
     //@ ghost int p = 0, q = 0, r = 0;
     /*@ loop invariant 0 < k <= n;
       @ loop invariant \forall integer i;
-      @                0 <= i < k ==> t >= ssum(a, i, k - 1);
-      @ loop invariant 0 <= p < k && t == ssum(a, p, k - 1);
+      @                0 <= i < k  ==> t >= segsum(a, i, k - 1);
+      @ loop invariant 0 <= p < k && t == segsum(a, p, k - 1);
       @ loop invariant \forall integer i, j;
-      @                0 <= i <= j < k ==> s >= ssum(a, i, j);
-      @ loop invariant 0 <= q <= r < k && s == ssum(a, q, r);
+      @                0 <= i <= j < k ==> s >= segsum(a, i, j);
+      @ loop invariant 0 <= q <= r < k && s == segsum(a, q, r);
       @ loop variant n - k;
       @*/
     for (int k = 1; k < n; k++) {
