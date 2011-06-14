@@ -6,6 +6,7 @@
   @*/
 
 /*@ requires n > 0 && \valid_range(a, 0, n - 1);
+  @ assigns \nothing;
   @ ensures MaxElem(\result, a, n);
   @*/
 int maxelem (int a[], int n) {

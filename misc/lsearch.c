@@ -1,5 +1,6 @@
 
 /*@ requires n >= 0 && \valid_range(a, 0, n - 1);
+  @ assigns \nothing;
   @ behavior success:
   @   assumes \exists integer k; 0 <= k < n && a[k] == v;
   @   ensures 0 <= \result < n && a[\result] == v;

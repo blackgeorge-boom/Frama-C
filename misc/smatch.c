@@ -24,6 +24,7 @@
 
 /*@ requires n >= 0 && \valid_range(t, 0, n - 1);
   @ requires m >= 0 && \valid_range(p, 0, m - 1);
+  @ assigns \nothing;
   @ behavior success:
   @   assumes Match(t, n, p, m);
   @   ensures 0 <= \result <= n - m && MatchAt(t, p, \result, m);
