@@ -41,3 +41,25 @@ int fib2 (int n) {
     }
     return a;
 }
+
+/*@ requires n >= 0;
+  @ ensures \result == fib(n);
+  @*/
+int fib3 (int n) {
+    int a = 1, b = 0;
+    /*@ loop invariant 0 <= k <= n;
+      @ loop invariant k == 0 ==> a == 1; // == fib(-1)
+      @ loop invariant k > 0 ==> a == fib(k - 1);
+      @ loop invariant b == fib(k);
+      @ loop variant n - k;
+      @*/
+    for (int k = 0; k < n; k++) {
+        int t = a + b;
+        //@ assert k == 0 ==> t == 1;
+        //@ ghost int l = k + 1;
+        //@ assert k > 0 ==> t == fib(l - 2) + fib(l - 1);
+        a = b;
+        b = t;
+    }
+    return b;
+}
