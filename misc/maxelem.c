@@ -1,5 +1,3 @@
-#pragma JessieIntegerModel(math)
-
 /*@ predicate MaxElem{L}(int e, int *a, integer n) =
   @   \forall integer i; 0 <= i < n ==> e >= a[i] &&
   @   \exists integer i; 0 <= i < n && e == a[i];

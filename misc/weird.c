@@ -2,8 +2,6 @@
  * A Weird Equilibrium
  */
 
-#pragma JessieIntegerModel(math)
-
 /*@ predicate IsMax(integer m, integer x, integer y, integer z) =
   @   (x <= m && y <= m && z <= m) &&
   @   (x == m || y == m || z == m);

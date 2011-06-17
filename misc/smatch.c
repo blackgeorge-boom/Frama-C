@@ -7,8 +7,6 @@
  *   Alt-Ergo 0.92.2 / CVC3 2.2
  */
 
-#pragma JessieIntegerModel(math)
-
 /*@ predicate MatchAt{L}(char *t, char *p, integer k, integer m) =
   @   \forall integer l; 0 <= l < m ==> t[k + l] == p[l];
   @*/
