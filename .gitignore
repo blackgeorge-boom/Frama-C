@@ -3,4 +3,5 @@
 *.o
 a.out
 *.jessie
+.frama-c/
 
